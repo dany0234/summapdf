@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="10.2.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
-    <PackageReference Include="Google.Apis.Vision.v1" Version="1.52.0.2368" />
+    <PackageReference Include="Google.Apis.Vision.v1" Version="1.53.0.2304" />
     <PackageReference Include="Google.Cloud.Vision.V1" Version="3.7.0" />
     <PackageReference Include="itext7" Version="8.0.4" />
     <PackageReference Include="MailKit" Version="4.6.0" />

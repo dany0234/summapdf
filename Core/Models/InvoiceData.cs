@@ -5,14 +5,14 @@ namespace PdfInvoiceProcessor.Core.Models
 {
     public class InvoiceData
     {
-        public string SupplierName { get; set; }
-        public string CustomerName { get; set; }
-        public string SupplierId { get; set; }
-        public string CustomerId { get; set; }
+        public string? SupplierName { get; set; }
+        public string? CustomerName { get; set; }
+        public string? SupplierId { get; set; }
+        public string? CustomerId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalBeforeTax { get; set; }
         public decimal TotalWithTax { get; set; }
-        public List<Product> Products { get; set; }
+        public List<Product>? Products { get; set; }
 
         public override string ToString()
         {
@@ -23,7 +23,7 @@ namespace PdfInvoiceProcessor.Core.Models
 
     public class Product
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
 

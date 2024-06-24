@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7OJyYSX+mIQ=",
+  "dgSpecHash": "aeZReSnYokI=",
   "success": true,
   "projectFilePath": "C:\\Users\\Daniel khait\\Documents\\GitHub\\PdfInvoiceProcessor\\PdfInvoiceProcessor.csproj",
   "expectedPackageFiles": [
@@ -123,16 +123,5 @@
     "C:\\Users\\Daniel khait\\.nuget\\packages\\uglytoad.pdfpig.tokenization\\1.7.0-custom-5\\uglytoad.pdfpig.tokenization.1.7.0-custom-5.nupkg.sha512",
     "C:\\Users\\Daniel khait\\.nuget\\packages\\uglytoad.pdfpig.tokens\\1.7.0-custom-5\\uglytoad.pdfpig.tokens.1.7.0-custom-5.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "PdfInvoiceProcessor depends on Google.Apis.Vision.v1 (>= 1.52.0.2368) but Google.Apis.Vision.v1 1.52.0.2368 was not found. An approximate best match of Google.Apis.Vision.v1 1.53.0.2304 was resolved.",
-      "libraryId": "Google.Apis.Vision.v1",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

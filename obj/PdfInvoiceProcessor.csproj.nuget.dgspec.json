@@ -53,7 +53,7 @@
             },
             "Google.Apis.Vision.v1": {
               "target": "Package",
-              "version": "[1.52.0.2368, )"
+              "version": "[1.53.0.2304, )"
             },
             "Google.Cloud.Vision.V1": {
               "target": "Package",

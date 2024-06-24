@@ -55,7 +55,7 @@ namespace PdfInvoiceProcessor.Infrastructure.Services
 
             var credential = new UserCredential(flow, "user", tokenResponse);
 
-            if (credential.Token.IsExpired(credential.Flow.Clock))
+            if (credential.Token.IsStale)
             {
                 if (!await credential.RefreshTokenAsync(CancellationToken.None))
                 {
