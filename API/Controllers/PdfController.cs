@@ -23,7 +23,7 @@ namespace PdfInvoiceProcessor.API.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadPdf([FromForm] IFormFile pdfFile)
+        public async Task<IActionResult> UploadPdf([FromForm] IFormFile pdfFile, [FromForm] string email)
         {
             _logger.LogInformation("Received file upload request");
 
@@ -31,6 +31,12 @@ namespace PdfInvoiceProcessor.API.Controllers
             {
                 _logger.LogWarning("No file uploaded or file is empty");
                 return BadRequest("No file uploaded.");
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                _logger.LogWarning("No email provided");
+                return BadRequest("No email provided.");
             }
 
             var uploadsDir = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
@@ -62,7 +68,7 @@ namespace PdfInvoiceProcessor.API.Controllers
 
             // Send the email with the extracted data
             _logger.LogInformation("Sending email with invoice data");
-            await _emailService.SendEmailWithInvoiceData(filePath, extractedData);
+            await _emailService.SendEmailWithInvoiceData(filePath, extractedData, email);
             _logger.LogInformation("Email sent successfully");
 
             return Ok(new { Message = "File uploaded, processed successfully, and email sent.", Data = extractedData });

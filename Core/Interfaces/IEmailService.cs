@@ -1,10 +1,10 @@
-using PdfInvoiceProcessor.Core.Models;
 using System.Threading.Tasks;
+using PdfInvoiceProcessor.Core.Models;
 
 namespace PdfInvoiceProcessor.Core.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmailWithInvoiceData(string filePath, InvoiceData data);
+        Task SendEmailWithInvoiceData(string filePath, InvoiceData data, string recipientEmail);
     }
 }
