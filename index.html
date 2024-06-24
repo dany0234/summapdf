@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Invoice Uploader</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upload PDF Invoice</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required />
+        <button type="submit">Upload</button>
+    </form>
+    <h2>Extracted Invoice Data</h2>
+    <div id="invoiceData">
+        <!-- Extracted data will be displayed here -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').submit(function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: 'http://localhost:5117/api/pdf/upload',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.Data) {
+                            $('#invoiceData').html(formatInvoiceData(response.Data));
+                        } else {
+                            $('#invoiceData').html('No data extracted.');
+                        }
+                    },
+                    error: function (error) {
+                        alert('Error uploading file.');
+                    }
+                });
+            });
+
+            function formatInvoiceData(data) {
+                if (!data) {
+                    return 'No data extracted.';
+                }
+
+                var html = '<ul>';
+                html += '<li>Supplier Name: ' + data.supplierName + '</li>';
+                html += '<li>Customer Name: ' + data.customerName + '</li>';
+                html += '<li>Supplier ID: ' + data.supplierId + '</li>';
+                html += '<li>Customer ID: ' + data.customerId + '</li>';
+                html += '<li>Invoice Date: ' + new Date(data.invoiceDate).toLocaleDateString() + '</li>';
+                html += '<li>Total Before Tax: ' + data.totalBeforeTax + '</li>';
+                html += '<li>Total With Tax: ' + data.totalWithTax + '</li>';
+                html += '<li>Products:</li>';
+                html += '<ul>';
+                data.products.forEach(function (product) {
+                    html += '<li>Name: ' + product.name + ', Quantity: ' + product.quantity + ', Price: ' + product.price + '</li>';
+                });
+                html += '</ul>';
+                html += '</ul>';
+                return html;
+            }
+        });
+    </script>
+</body>
+</html>

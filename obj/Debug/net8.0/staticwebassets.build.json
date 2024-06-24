@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "bOmo4gyFqmI4fuH8TDg246AH1/d6Lc7Gx1BYNWCjAME=",
+  "Source": "PdfInvoiceProcessor",
+  "BasePath": "_content/PdfInvoiceProcessor",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
