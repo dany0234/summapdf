@@ -5,17 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Invoice Uploader</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input[type="file"], input[type="email"], button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+        #invoiceData {
+            text-align: left;
+            margin-top: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload PDF Invoice</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required />
-        <input type="email" id="email" name="email" placeholder="Recipient Email" required />
-        <button type="submit">Upload</button>
-    </form>
-    <h2>Extracted Invoice Data</h2>
-    <div id="invoiceData">
-        <!-- Extracted data will be displayed here -->
+    <div class="container">
+        <h1>Upload PDF Invoice</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required />
+            <input type="email" id="email" name="email" placeholder="Recipient Email" required />
+            <button type="submit">Upload</button>
+        </form>
+        <h2>Extracted Invoice Data</h2>
+        <div id="invoiceData">
+            <!-- Extracted data will be displayed here -->
+        </div>
     </div>
 
     <script>

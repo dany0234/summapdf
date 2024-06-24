@@ -46,7 +46,8 @@ app.UseDefaultFiles(new DefaultFilesOptions
 });
 app.UseAuthorization();
 
-app.MapGet("/", () => "Welcome to PDF Invoice Processor API!");
 app.MapControllers();
+app.MapFallbackToFile("index.html");
+
 
 app.Run();

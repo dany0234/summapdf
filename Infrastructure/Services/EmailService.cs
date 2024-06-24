@@ -24,7 +24,7 @@ namespace PdfInvoiceProcessor.Infrastructure.Services
         public async Task SendEmailWithInvoiceData(string filePath, InvoiceData data, string recipientEmail)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Your Company", _configuration["Email:From"]));
+            message.From.Add(new MailboxAddress("Summa Company", _configuration["Email:From"]));
             message.To.Add(new MailboxAddress("Recipient", recipientEmail));
             message.Subject = "Invoice Details";
 
