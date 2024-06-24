@@ -29,7 +29,6 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -40,7 +39,14 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+    DefaultFileNames = new List<string> { "index.html" }
+});
 app.UseAuthorization();
+
+app.MapGet("/", () => "Welcome to PDF Invoice Processor API!");
 app.MapControllers();
 
 app.Run();

@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Daniel khait\\Documents\\GitHub\\PdfInvoiceProcessor\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.PdfInvoiceProcessor.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.PdfInvoiceProcessor.props",
+      "PackagePath": "build\\PdfInvoiceProcessor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.PdfInvoiceProcessor.props",
+      "PackagePath": "buildMultiTargeting\\PdfInvoiceProcessor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.PdfInvoiceProcessor.props",
+      "PackagePath": "buildTransitive\\PdfInvoiceProcessor.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

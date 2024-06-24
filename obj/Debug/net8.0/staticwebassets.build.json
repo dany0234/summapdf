@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "bOmo4gyFqmI4fuH8TDg246AH1/d6Lc7Gx1BYNWCjAME=",
+  "Hash": "mLkrmmlVxgodn6HasV3pyN9PI5mRg9ld4Albo5fm1Qo=",
   "Source": "PdfInvoiceProcessor",
   "BasePath": "_content/PdfInvoiceProcessor",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "PdfInvoiceProcessor\\wwwroot",
+      "Source": "PdfInvoiceProcessor",
+      "ContentRoot": "C:\\Users\\Daniel khait\\Documents\\GitHub\\PdfInvoiceProcessor\\wwwroot\\",
+      "BasePath": "_content/PdfInvoiceProcessor",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Daniel khait\\Documents\\GitHub\\PdfInvoiceProcessor\\wwwroot\\index.html",
+      "SourceId": "PdfInvoiceProcessor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Daniel khait\\Documents\\GitHub\\PdfInvoiceProcessor\\wwwroot\\",
+      "BasePath": "_content/PdfInvoiceProcessor",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
 }

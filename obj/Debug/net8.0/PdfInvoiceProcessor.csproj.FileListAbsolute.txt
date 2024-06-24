@@ -85,3 +85,4 @@ C:\Users\Daniel khait\Documents\GitHub\PdfInvoiceProcessor\bin\Debug\net8.0\x64\
 C:\Users\Daniel khait\Documents\GitHub\PdfInvoiceProcessor\bin\Debug\net8.0\x64\tesseract50.dll
 C:\Users\Daniel khait\Documents\GitHub\PdfInvoiceProcessor\bin\Debug\net8.0\Tesseract.dll
 C:\Users\Daniel khait\Documents\GitHub\PdfInvoiceProcessor\obj\Debug\net8.0\PdfInvoiceProcessor.sourcelink.json
+C:\Users\Daniel khait\Documents\GitHub\PdfInvoiceProcessor\bin\Debug\net8.0\PdfInvoiceProcessor.staticwebassets.runtime.json
