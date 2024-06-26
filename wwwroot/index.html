@@ -97,8 +97,8 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if (response.Data) {
-                            $('#invoiceData').html(formatInvoiceData(response.Data));
+                        if (response.data) {
+                            $('#invoiceData').html(formatInvoiceData(response.data));
                         } else {
                             $('#invoiceData').html('No data extracted.');
                         }

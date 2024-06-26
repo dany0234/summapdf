@@ -1,75 +1,70 @@
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Responses;
-using MimeKit;
-using MailKit.Net.Smtp;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using PdfInvoiceProcessor.Core.Interfaces;
 using PdfInvoiceProcessor.Core.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using System;
-using MailKit.Security;
+using System.IO;
 
 namespace PdfInvoiceProcessor.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<EmailService> _logger;
 
-        public EmailService(IConfiguration configuration)
+        public EmailService(IConfiguration configuration, ILogger<EmailService> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task SendEmailWithInvoiceData(string filePath, InvoiceData data, string recipientEmail)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Summa Company", _configuration["Email:From"]));
-            message.To.Add(new MailboxAddress("Recipient", recipientEmail));
-            message.Subject = "Invoice Details";
+            var apiKey = _configuration["SendGrid:ApiKey"];
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress(_configuration["Email:From"], "Summa Company");
+            var to = new EmailAddress(recipientEmail);
+            var subject = "Invoice Details";
+            var plainTextContent = $"Invoice details:\n\n" +
+                                   $"Supplier: {data.SupplierName}\n" +
+                                   $"Customer: {data.CustomerName}\n" +
+                                   $"Supplier ID: {data.SupplierId}\n" +
+                                   $"Customer ID: {data.CustomerId}\n" +
+                                   $"Invoice Date: {data.InvoiceDate:dd/MM/yyyy}\n" +
+                                   $"Total Before Tax: {data.TotalBeforeTax}\n" +
+                                   $"Total With Tax: {data.TotalWithTax}\n" +
+                                   $"Products:\n";
 
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.TextBody = $"Invoice details:\n\nSupplier: {data.SupplierName}\nCustomer: {data.CustomerName}\nTotal Before Tax: {data.TotalBeforeTax}\nTotal With Tax: {data.TotalWithTax}";
-            bodyBuilder.Attachments.Add(filePath);
-
-            message.Body = bodyBuilder.ToMessageBody();
-
-            var tokenResponse = new TokenResponse
+            foreach (var product in data.Products)
             {
-                AccessToken = _configuration["Email:AccessToken"],
-                RefreshToken = _configuration["Email:RefreshToken"],
-                ExpiresInSeconds = 3599,
-                IssuedUtc = DateTime.UtcNow
-            };
-
-            var clientSecrets = new ClientSecrets
-            {
-                ClientId = _configuration["Email:ClientId"],
-                ClientSecret = _configuration["Email:ClientSecret"]
-            };
-
-            var flow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
-            {
-                ClientSecrets = clientSecrets
-            });
-
-            var credential = new UserCredential(flow, "user", tokenResponse);
-
-            if (credential.Token.IsStale)
-            {
-                if (!await credential.RefreshTokenAsync(CancellationToken.None))
-                {
-                    throw new InvalidOperationException("Failed to refresh the access token.");
-                }
+                plainTextContent += $"- Name: {product.Name}, Quantity: {product.Quantity}, Price: {product.Price}\n";
             }
 
-            using (var client = new SmtpClient())
+            var htmlContent = plainTextContent.Replace("\n", "<br>");
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            var attachment = new SendGrid.Helpers.Mail.Attachment
             {
-                await client.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                var oauth2 = new SaslMechanismOAuth2(_configuration["Email:Username"], credential.Token.AccessToken);
-                await client.AuthenticateAsync(oauth2);
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
+                Content = Convert.ToBase64String(File.ReadAllBytes(filePath)),
+                Filename = Path.GetFileName(filePath),
+                Type = "application/pdf",
+                Disposition = "attachment"
+            };
+            msg.AddAttachment(attachment);
+
+            _logger.LogInformation("Sending email to {RecipientEmail}", recipientEmail);
+            var response = await client.SendEmailAsync(msg);
+
+            _logger.LogInformation("SendGrid response status code: {StatusCode}", response.StatusCode);
+            _logger.LogInformation("SendGrid response body: {ResponseBody}", await response.Body.ReadAsStringAsync());
+            if (response.Headers != null)
+            {
+                foreach (var header in response.Headers)
+                {
+                    _logger.LogInformation("SendGrid response header: {HeaderKey} - {HeaderValue}", header.Key, string.Join(",", header.Value));
+                }
             }
         }
     }
